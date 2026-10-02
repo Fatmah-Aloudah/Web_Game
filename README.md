@@ -112,3 +112,9 @@ Edit the appropriate JSON file, commit/push the change, and refresh the game. Th
 - **Team turns**: the category picker rotates between teams; the active team glows in the scoreboard.
 - **Fun**: sound effects (mute button 🔊 in the header), confetti, animated timer ring with a shake in the last 5 seconds, flip-in answer reveal, score count-up, and a rising podium. Motion is disabled automatically for users who prefer reduced motion.
 - **Test data**: every category has 3–4 questions, plus a *Media Lab* category with an image (with answer image), an audio and a video example in `assets/`.
+
+## Flow update
+
+- **Language** is chosen on the landing page.
+- **Category selection page** (after team setup): tick the categories to play; only those appear on the category screen (use *Change categories* to edit later).
+- **Ties**: teams with equal scores stand together on the same podium stand.
