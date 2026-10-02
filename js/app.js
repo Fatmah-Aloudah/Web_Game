@@ -322,11 +322,12 @@
     app.innerHTML = `<div class="screen"><div class="topbar"><div class="topbar-row"><div class="team-strip">${scoreCells(0,1,2)}</div><div class="topbar-title">🏆 ${t('Winners','الفائزون')}</div><div class="header-actions" style="justify-content:flex-end;"><button class="secondary-btn" id="muteBtn" title="Sound">${FX.isMuted()?'🔇':'🔊'}</button><button class="secondary-btn" id="backCategories">${t('← Categories','← التصنيفات')}</button></div></div></div><div class="page"><div class="container">
       <div class="page-header"><div><h2>${t('Final Standings','الترتيب النهائي')}</h2><p class="footer-note">${t('The podium is sized 1st > 2nd > 3rd.','المنصة بارتفاع: الأول > الثاني > الثالث.')}</p></div></div>
       <div class="panel"><div class="podium">${podiumPlace(ranked[1],1)}${podiumPlace(ranked[0],0)}${podiumPlace(ranked[2],2)}</div></div>
-      <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:22px;"><button class="primary-btn" id="replay">↻ ${t('Replay from zero','إعادة اللعب من البداية')}</button></div>
+      <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:22px;"><button class="primary-btn" id="replay">↻ ${t('Same teams, start from zero','نفس الفرق، ابدأ من الصفر')}</button><button class="secondary-btn" id="newGame">🏠 ${t('Back to start (new teams)','العودة للبداية (فرق جديدة)')}</button></div>
     </div></div></div>`;
     wireBack();
     FX.sfx('fanfare'); FX.confetti(260);
     document.getElementById('replay').onclick = () => { resetGameData(); state.page='categories'; render(); };
+    document.getElementById('newGame').onclick = () => { resetGameData(); state.teams = []; state.page = 'landing'; render(); };
   }
 
   function podiumPlace(team, zeroBasedRank) {
