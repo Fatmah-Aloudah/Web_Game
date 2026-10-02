@@ -71,6 +71,7 @@
           "points": 150,
           "timer": 25
         }
+		
       ]
     },
     {
@@ -203,6 +204,22 @@
           "answer": "١١ لاعباً",
           "points": 100,
           "timer": 20
+        },
+        {
+          "id": "ar-mixed-4",
+          "type": "text",
+          "question": "من هو أول داعي في الإسلام",
+          "answer": "مصعب عمير",
+          "points": 100,
+          "timer": 35
+        },
+        {
+          "id": "ar-mixed-5",
+          "type": "text",
+          "question": "كم عدد الدول العربية؟",
+          "answer": "22",
+          "points": 100,
+          "timer": 35
         }
       ]
     },
