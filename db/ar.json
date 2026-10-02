@@ -1,0 +1,181 @@
+{
+  "language": "ar",
+  "version": 2,
+  "categories": [
+    {
+      "id": "general",
+      "name": "معلومات عامة",
+      "icon": "🧠",
+      "questions": [
+        {
+          "id": "ar-general-1",
+          "type": "text",
+          "question": "أي كوكب يُعرف بالكوكب الأحمر؟",
+          "answer": "المريخ",
+          "points": 100,
+          "timer": 30
+        },
+        {
+          "id": "ar-general-2",
+          "type": "text",
+          "question": "كم عدد القارات على كوكب الأرض؟",
+          "answer": "سبع قارات",
+          "points": 150,
+          "timer": 30
+        },
+        {
+          "id": "ar-general-3",
+          "type": "text",
+          "question": "ما عاصمة اليابان؟",
+          "answer": "طوكيو",
+          "points": 100,
+          "timer": 25
+        },
+        {
+          "id": "ar-general-4",
+          "type": "text",
+          "question": "كم يوماً في السنة الكبيسة؟",
+          "answer": "٣٦٦ يوماً",
+          "points": 150,
+          "timer": 25
+        }
+      ]
+    },
+    {
+      "id": "science",
+      "name": "العلوم",
+      "icon": "🔬",
+      "questions": [
+        {
+          "id": "ar-science-1",
+          "type": "text",
+          "question": "ما الغاز الذي تمتصه النباتات من الغلاف الجوي أثناء عملية البناء الضوئي؟",
+          "answer": "ثاني أكسيد الكربون",
+          "points": 150,
+          "timer": 35
+        },
+        {
+          "id": "ar-science-2",
+          "type": "text",
+          "question": "ماذا يُسمى H₂O عادةً؟",
+          "answer": "الماء",
+          "points": 100,
+          "timer": 20
+        },
+        {
+          "id": "ar-science-3",
+          "type": "text",
+          "question": "ما أصلب مادة طبيعية؟",
+          "answer": "الألماس",
+          "points": 200,
+          "timer": 30
+        },
+        {
+          "id": "ar-science-4",
+          "type": "text",
+          "question": "أي كوكب هو الأقرب إلى الشمس؟",
+          "answer": "عطارد",
+          "points": 150,
+          "timer": 25
+        }
+      ]
+    },
+    {
+      "id": "history",
+      "name": "التاريخ",
+      "icon": "🏛️",
+      "questions": [
+        {
+          "id": "ar-history-1",
+          "type": "text",
+          "question": "أي حضارة قديمة بنت أهرامات الجيزة؟",
+          "answer": "المصريون القدماء",
+          "points": 200,
+          "timer": 40
+        },
+        {
+          "id": "ar-history-2",
+          "type": "text",
+          "question": "من أول إنسان مشى على سطح القمر؟",
+          "answer": "نيل أرمسترونغ",
+          "points": 200,
+          "timer": 35
+        },
+        {
+          "id": "ar-history-3",
+          "type": "text",
+          "question": "في أي عام انتهت الحرب العالمية الثانية؟",
+          "answer": "١٩٤٥",
+          "points": 250,
+          "timer": 35
+        }
+      ]
+    },
+    {
+      "id": "mixed",
+      "name": "تحدي متنوع",
+      "icon": "🎯",
+      "questions": [
+        {
+          "id": "ar-mixed-1",
+          "type": "text",
+          "question": "ما أكبر محيط على سطح الأرض؟",
+          "answer": "المحيط الهادئ",
+          "points": 200,
+          "timer": 30
+        },
+        {
+          "id": "ar-mixed-2",
+          "type": "text",
+          "question": "ما أسرع حيوان بري؟",
+          "answer": "الفهد",
+          "points": 150,
+          "timer": 25
+        },
+        {
+          "id": "ar-mixed-3",
+          "type": "text",
+          "question": "كم لاعباً يشارك من كل فريق في ملعب كرة القدم؟",
+          "answer": "١١ لاعباً",
+          "points": 100,
+          "timer": 20
+        }
+      ]
+    },
+    {
+      "id": "media",
+      "name": "مختبر الوسائط",
+      "icon": "🎬",
+      "questions": [
+        {
+          "id": "ar-media-image",
+          "type": "image",
+          "question": "لأي دولة ينتمي هذا العلم؟",
+          "answer": "اليابان",
+          "points": 150,
+          "timer": 25,
+          "media": "assets/flag-japan.svg",
+          "answerMedia": "assets/answer-japan.svg"
+        },
+        {
+          "id": "ar-media-audio",
+          "type": "audio",
+          "question": "استمعوا جيداً: كم نغمة تسمعون؟",
+          "answer": "ثلاث نغمات",
+          "points": 200,
+          "timer": 30,
+          "media": "assets/three-notes.wav"
+        },
+        {
+          "id": "ar-media-video",
+          "type": "video",
+          "question": "شاهدوا المقطع: ما لون المربع المتحرك؟",
+          "answer": "أزرق",
+          "points": 200,
+          "timer": 30,
+          "media": "assets/moving-square.mp4"
+        }
+      ]
+    }
+  ]
+}

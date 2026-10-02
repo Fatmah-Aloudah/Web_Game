@@ -1,0 +1,181 @@
+{
+  "language": "en",
+  "version": 2,
+  "categories": [
+    {
+      "id": "general",
+      "name": "General Knowledge",
+      "icon": "🧠",
+      "questions": [
+        {
+          "id": "en-general-1",
+          "type": "text",
+          "question": "Which planet is known as the Red Planet?",
+          "answer": "Mars",
+          "points": 100,
+          "timer": 30
+        },
+        {
+          "id": "en-general-2",
+          "type": "text",
+          "question": "How many continents are there on Earth?",
+          "answer": "Seven",
+          "points": 150,
+          "timer": 30
+        },
+        {
+          "id": "en-general-3",
+          "type": "text",
+          "question": "What is the capital of Japan?",
+          "answer": "Tokyo",
+          "points": 100,
+          "timer": 25
+        },
+        {
+          "id": "en-general-4",
+          "type": "text",
+          "question": "How many days are in a leap year?",
+          "answer": "366",
+          "points": 150,
+          "timer": 25
+        }
+      ]
+    },
+    {
+      "id": "science",
+      "name": "Science",
+      "icon": "🔬",
+      "questions": [
+        {
+          "id": "en-science-1",
+          "type": "text",
+          "question": "What gas do plants absorb from the atmosphere during photosynthesis?",
+          "answer": "Carbon dioxide (CO₂)",
+          "points": 150,
+          "timer": 35
+        },
+        {
+          "id": "en-science-2",
+          "type": "text",
+          "question": "What is H₂O commonly called?",
+          "answer": "Water",
+          "points": 100,
+          "timer": 20
+        },
+        {
+          "id": "en-science-3",
+          "type": "text",
+          "question": "What is the hardest natural substance?",
+          "answer": "Diamond",
+          "points": 200,
+          "timer": 30
+        },
+        {
+          "id": "en-science-4",
+          "type": "text",
+          "question": "Which planet is closest to the Sun?",
+          "answer": "Mercury",
+          "points": 150,
+          "timer": 25
+        }
+      ]
+    },
+    {
+      "id": "history",
+      "name": "History",
+      "icon": "🏛️",
+      "questions": [
+        {
+          "id": "en-history-1",
+          "type": "text",
+          "question": "Which ancient civilization built the pyramids of Giza?",
+          "answer": "Ancient Egyptians",
+          "points": 200,
+          "timer": 40
+        },
+        {
+          "id": "en-history-2",
+          "type": "text",
+          "question": "Who was the first person to walk on the Moon?",
+          "answer": "Neil Armstrong",
+          "points": 200,
+          "timer": 35
+        },
+        {
+          "id": "en-history-3",
+          "type": "text",
+          "question": "In which year did World War II end?",
+          "answer": "1945",
+          "points": 250,
+          "timer": 35
+        }
+      ]
+    },
+    {
+      "id": "mixed",
+      "name": "Mixed Challenge",
+      "icon": "🎯",
+      "questions": [
+        {
+          "id": "en-mixed-1",
+          "type": "text",
+          "question": "What is the largest ocean on Earth?",
+          "answer": "The Pacific Ocean",
+          "points": 200,
+          "timer": 30
+        },
+        {
+          "id": "en-mixed-2",
+          "type": "text",
+          "question": "What is the fastest land animal?",
+          "answer": "Cheetah",
+          "points": 150,
+          "timer": 25
+        },
+        {
+          "id": "en-mixed-3",
+          "type": "text",
+          "question": "How many players does one football team have on the pitch?",
+          "answer": "11",
+          "points": 100,
+          "timer": 20
+        }
+      ]
+    },
+    {
+      "id": "media",
+      "name": "Media Lab",
+      "icon": "🎬",
+      "questions": [
+        {
+          "id": "en-media-image",
+          "type": "image",
+          "question": "Which country does this flag belong to?",
+          "answer": "Japan",
+          "points": 150,
+          "timer": 25,
+          "media": "assets/flag-japan.svg",
+          "answerMedia": "assets/answer-japan.svg"
+        },
+        {
+          "id": "en-media-audio",
+          "type": "audio",
+          "question": "Listen carefully: how many notes do you hear?",
+          "answer": "Three",
+          "points": 200,
+          "timer": 30,
+          "media": "assets/three-notes.wav"
+        },
+        {
+          "id": "en-media-video",
+          "type": "video",
+          "question": "Watch the clip: what colour is the moving square?",
+          "answer": "Blue",
+          "points": 200,
+          "timer": 30,
+          "media": "assets/moving-square.mp4"
+        }
+      ]
+    }
+  ]
+}
