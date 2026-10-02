@@ -3,19 +3,6 @@
   "version": 2,
   "categories": [
     {
-		"id": "no_word",
-		"name": "ولا كلمة",
-		"icon": "🙊",
-		"questions": [
-		{
-          "id": "ar-no_word-1",
-          "type": "text",
-          "question": "ذئب",
-          "answer": "ذئب",
-          "points": 100,
-          "timer": 30
-        }
-		[
       "id": "general",
       "name": "معلومات عامة",
       "icon": "🧠",
