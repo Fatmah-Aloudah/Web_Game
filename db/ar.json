@@ -220,6 +220,14 @@
           "answer": "22",
           "points": 100,
           "timer": 35
+        },
+        {
+          "id": "ar-mixed-6",
+          "type": "text",
+          "question": "من الرسّام الذي رسم لوحة الموناليزا؟",
+          "answer": "ليوناردو دافنشي ",
+          "points": 160,
+          "timer": 35
         }
       ]
     },
