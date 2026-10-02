@@ -39,6 +39,30 @@
           "points": 150,
           "timer": 25
         }
+		 {
+          "id": "ar-general-5",
+          "type": "text",
+          "question": "ما عاصمة عمان؟",
+          "answer": "مسقط",
+          "points": 100,
+          "timer": 25
+        },
+		 {
+          "id": "ar-general-6",
+          "type": "text",
+          "question": "ما عاصمة السودان",
+          "answer": "الخرطوم",
+          "points": 100,
+          "timer": 25
+        },
+		 {
+          "id": "ar-general-7",
+          "type": "text",
+          "question": "أين تقع فنزويلا",
+          "answer": "أمريكا الجنوبية",
+          "points": 100,
+          "timer": 25
+        },
       ]
     },
     {
@@ -89,7 +113,7 @@
           "id": "ar-history-1",
           "type": "text",
           "question": "أي حضارة قديمة بنت أهرامات الجيزة؟",
-          "answer": "المصريون القدماء",
+          "answer": "  االفراعنة المصريون القدماء",
           "points": 200,
           "timer": 40
         },
