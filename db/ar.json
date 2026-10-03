@@ -265,6 +265,23 @@
           "media": "assets/moving-square.mp4"
         }
       ]
+    },
+	    {
+      "id": "media",
+      "name": "Songs",
+      "icon": "🎵",
+      "questions": [
+        {
+          "id": "ar-media-audio",
+          "type": "image",
+          "question": "لأي دولة ينتمي هذا العلم؟",
+          "answer": "اليابان",
+          "points": 150,
+          "timer": 25,
+          "media": "assets/flag-japan.svg",
+          "answerMedia": "assets/answer-japan.svg"
+        }
+      ]
     }
   ]
 }
