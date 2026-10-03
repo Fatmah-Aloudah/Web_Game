@@ -267,19 +267,19 @@
       ]
     },
 	    {
-      "id": "media",
+      "id": "Songs",
       "name": "Songs",
       "icon": "🎵",
       "questions": [
         {
-          "id": "ar-media-audio",
-          "type": "image",
-          "question": "لأي دولة ينتمي هذا العلم؟",
-          "answer": "اليابان",
+          "id": "ar-Songs-1",
+          "type": "audio",
+          "question": "ما اسم الأغنية؟",
+          "answer": "ماوكلي",
           "points": 150,
           "timer": 25,
-          "media": "assets/flag-japan.svg",
-          "answerMedia": "assets/answer-japan.svg"
+          "media": "assets/Maucly.wav",
+          "answerMedia": "assets/Maucly.wav"
         }
       ]
     }
