@@ -267,19 +267,37 @@
       ]
     },
 	    {
-      "id": "No-Word",
-      "name": "No-Word",
-      "icon": "🙊",
+      "id": "Songs",
+      "name": "Songs",
+      "icon": "🎵",
       "questions": [
         {
-          "id": "No-Word-1",
-          "type": "text",
-          "question": "تليفون",
-          "answer": "تليفون",
+          "id": "ar-Songs-1",
+          "type": "audio",
+          "question": "ما اسم الأغنية؟",
+          "answer": "ماوكلي",
           "points": 100,
-          "timer": 40,
+          "timer": 25,
+          "media": "assets/Maucly.wav",
+          "answerMedia": "assets/Maucly.wav"
         }
       ]
-    }
+    },
+	{
+      "id": "Countries",
+      "name": "دول وعواصم",
+      "icon": "🏴",
+      "questions": 
+	  [
+        {
+          "id": "ar-Countries-1",
+          "type": "text",
+          "question": "عاصمة المملكة العربية السعودية",
+          "answer": "الرياض",
+          "points": 100,
+          "timer": 30
+        }
+	}
+	  ]
   ]
 }
