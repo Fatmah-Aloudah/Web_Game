@@ -282,6 +282,35 @@
           "answerMedia": "assets/Maucly.wav"
         }
       ]
+    },
+	,
+	    {
+      "id": "Cartoons",
+      "name": "أفلام كرتون",
+      "icon": "📺",
+      "questions": [
+        {
+          "id": "ar-Cartoons-1",
+          "type": "image",
+          "question": "ما اسم الكرتون",
+          "answer": "فلونة",
+          "points": 100,
+          "timer": 30,
+          "media": "assets/Flona.png",
+          "answerMedia": "assets/Flona.png"
+        },
+		{
+          "id": "ar-Cartoons-2",
+          "type": "image",
+          "question": "ما اسم الكرتون",
+          "answer": "ماوكلي",
+          "points": 100,
+          "timer": 30,
+          "media": "assets/Mowgli.png",
+          "answerMedia": "assets/Mowgli.png"
+        }
+      ]
     }
+	
   ]
 }
