@@ -20,7 +20,7 @@
           "type": "text",
           "question": "كم عدد القارات على كوكب الأرض؟",
           "answer": "سبع قارات",
-          "points": 150,
+          "points": 100,
           "timer": 30
         },
         {
@@ -36,7 +36,7 @@
           "type": "text",
           "question": "كم يوماً في السنة الكبيسة؟",
           "answer": "٣٦٦ يوماً",
-          "points": 150,
+          "points": 100,
           "timer": 25
         },
 		 {
@@ -68,7 +68,7 @@
           "type": "text",
           "question": "ما هي أكبر دولة من حيث المساحة؟",
           "answer": "روسيا",
-          "points": 150,
+          "points": 100,
           "timer": 25
         }
 		
@@ -84,7 +84,7 @@
           "type": "text",
           "question": "ما الغاز الذي تمتصه النباتات من الغلاف الجوي أثناء عملية البناء الضوئي؟",
           "answer": "ثاني أكسيد الكربون",
-          "points": 150,
+          "points": 100,
           "timer": 35
         },
         {
@@ -100,7 +100,7 @@
           "type": "text",
           "question": "ما أصلب مادة طبيعية؟",
           "answer": "الألماس",
-          "points": 200,
+          "points": 100,
           "timer": 30
         },
         {
@@ -108,7 +108,7 @@
           "type": "text",
           "question": "أي كوكب هو الأقرب إلى الشمس؟",
           "answer": "عطارد",
-          "points": 150,
+          "points": 100,
           "timer": 25
         },
         {
@@ -116,7 +116,7 @@
           "type": "text",
           "question": "من هو مخترع المصباح الكهربائي",
           "answer": "أديسون",
-          "points": 150,
+          "points": 100,
           "timer": 25
         },
         {
@@ -124,7 +124,7 @@
           "type": "text",
           "question": "ما هو أكثر عنصر كيميائي متواجد في جسم الإنسان؟",
           "answer": "أكسجين",
-          "points": 150,
+          "points": 100,
           "timer": 30
         },
         {
@@ -132,7 +132,7 @@
           "type": "text",
           "question": "لماذا تختلف ألوان النجوم؟",
           "answer": "بسبب اختلاف درجة الحرارة",
-          "points": 150,
+          "points": 100,
           "timer": 30
         },
         {
@@ -140,7 +140,7 @@
           "type": "text",
           "question": "ما هو الحيوان الذي لا يصدر أي صوت؟",
           "answer": "الزرافة",
-          "points": 150,
+          "points": 100,
           "timer": 30
         }
       ]
@@ -155,7 +155,7 @@
           "type": "text",
           "question": "أي حضارة قديمة بنت أهرامات الجيزة؟",
           "answer": "  االفراعنة المصريون القدماء",
-          "points": 200,
+          "points": 100,
           "timer": 40
         },
         {
@@ -163,7 +163,7 @@
           "type": "text",
           "question": "من أول إنسان مشى على سطح القمر؟",
           "answer": "نيل أرمسترونغ",
-          "points": 200,
+          "points": 100,
           "timer": 35
         },
         {
@@ -171,7 +171,7 @@
           "type": "text",
           "question": "في أي عام انتهت الحرب العالمية الثانية؟",
           "answer": "١٩٤٥",
-          "points": 250,
+          "points": 100,
           "timer": 35
         }
       ]
@@ -186,7 +186,7 @@
           "type": "text",
           "question": "ما أكبر محيط على سطح الأرض؟",
           "answer": "المحيط الهادئ",
-          "points": 200,
+          "points": 100,
           "timer": 30
         },
         {
@@ -194,7 +194,7 @@
           "type": "text",
           "question": "ما أسرع حيوان بري؟",
           "answer": "الفهد",
-          "points": 150,
+          "points": 100,
           "timer": 25
         },
         {
@@ -226,7 +226,7 @@
           "type": "text",
           "question": "من الرسّام الذي رسم لوحة الموناليزا؟",
           "answer": "ليوناردو دافنشي ",
-          "points": 160,
+          "points": 100,
           "timer": 35
         }
       ]
@@ -241,7 +241,7 @@
           "type": "image",
           "question": "لأي دولة ينتمي هذا العلم؟",
           "answer": "اليابان",
-          "points": 150,
+          "points": 100,
           "timer": 25,
           "media": "assets/flag-japan.svg",
           "answerMedia": "assets/answer-japan.svg"
@@ -251,7 +251,7 @@
           "type": "audio",
           "question": "استمعوا جيداً: كم نغمة تسمعون؟",
           "answer": "ثلاث نغمات",
-          "points": 200,
+          "points": 100,
           "timer": 30,
           "media": "assets/three-notes.wav"
         },
@@ -260,26 +260,24 @@
           "type": "video",
           "question": "شاهدوا المقطع: ما لون المربع المتحرك؟",
           "answer": "أزرق",
-          "points": 200,
+          "points": 100,
           "timer": 30,
           "media": "assets/moving-square.mp4"
         }
       ]
     },
 	    {
-      "id": "Songs",
-      "name": "Songs",
-      "icon": "🎵",
+      "id": "No-Word",
+      "name": "No-Word",
+      "icon": "🙊",
       "questions": [
         {
-          "id": "ar-Songs-1",
-          "type": "audio",
-          "question": "ما اسم الأغنية؟",
-          "answer": "ماوكلي",
-          "points": 150,
-          "timer": 25,
-          "media": "assets/Maucly.wav",
-          "answerMedia": "assets/Maucly.wav"
+          "id": "No-Word-1",
+          "type": "text",
+          "question": "تليفون",
+          "answer": "تليفون",
+          "points": 100,
+          "timer": 40,
         }
       ]
     }
