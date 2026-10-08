@@ -50,7 +50,7 @@
 		 {
           "id": "ar-general-6",
           "type": "text",
-          "question": "ما عاصمة السودان",
+          "question": "ما عاصمة السودان؟",
           "answer": "الخرطوم",
           "points": 100,
           "timer": 25
@@ -58,7 +58,7 @@
 		 {
           "id": "ar-general-7",
           "type": "text",
-          "question": "أين تقع فنزويلا",
+          "question": "أين تقع فنزويلا؟",
           "answer": "أمريكا الجنوبية",
           "points": 100,
           "timer": 25
@@ -90,7 +90,7 @@
         {
           "id": "ar-science-2",
           "type": "text",
-          "question": "ماذا يُسمى H₂O عادةً؟",
+          "question": "ماذا يسمى -H2O- عادة؟",
           "answer": "الماء",
           "points": 100,
           "timer": 20
@@ -114,8 +114,8 @@
         {
           "id": "ar-science-5",
           "type": "text",
-          "question": "من هو مخترع المصباح الكهربائي",
-          "answer": "أديسون",
+          "question": "من هو مخترع المصباح الكهربائي؟",
+          "answer": "توماس إديسون",
           "points": 100,
           "timer": 25
         },
@@ -154,7 +154,7 @@
           "id": "ar-history-1",
           "type": "text",
           "question": "أي حضارة قديمة بنت أهرامات الجيزة؟",
-          "answer": "  االفراعنة المصريون القدماء",
+          "answer": "الفراعنة المصريون القدماء",
           "points": 100,
           "timer": 40
         },
@@ -208,8 +208,8 @@
         {
           "id": "ar-mixed-4",
           "type": "text",
-          "question": "من هو أول داعي في الإسلام",
-          "answer": "مصعب عمير",
+          "question": "من هو أول داعي في الإسلام؟",
+          "answer": "مصعب بن عمير",
           "points": 100,
           "timer": 35
         },
@@ -267,12 +267,12 @@
       ]
     },
 	    {
-      "id": "Songs",
-      "name": "Songs",
+      "id": "songs",
+      "name": "songs",
       "icon": "🎵",
       "questions": [
         {
-          "id": "ar-Songs-1",
+          "id": "ar-songs-1",
           "type": "audio",
           "question": "ما اسم الأغنية؟",
           "answer": "ماوكلي",
@@ -283,14 +283,13 @@
         }
       ]
     },
-	,
 	    {
-      "id": "Cartoons",
+      "id": "cartoons",
       "name": "أفلام كرتون",
       "icon": "📺",
       "questions": [
         {
-          "id": "ar-Cartoons-1",
+          "id": "ar-cartoons-1",
           "type": "image",
           "question": "ما اسم الكرتون",
           "answer": "فلونة",
@@ -300,7 +299,7 @@
           "answerMedia": "assets/Flona.png"
         },
 		{
-          "id": "ar-Cartoons-2",
+          "id": "ar-cartoons-2",
           "type": "image",
           "question": "ما اسم الكرتون",
           "answer": "ماوكلي",
