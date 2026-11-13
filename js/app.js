@@ -16,7 +16,9 @@
     used: new Set(loadUsed()),
     lastId: null,
     turn: 0,
-    timerInit: 30
+    timerInit: 30,
+    teamDraft: [],
+    progress: {}
   };
 
   function t(en, ar) { return state.lang === 'ar' ? ar : en; }
@@ -72,7 +74,7 @@
   function resetGameData() {
     stopTimer();
     state.teams = state.teams.map(team => ({...team, score: 0}));
-    state.used.clear(); state.turn = 0; saveUsed();
+    state.used.clear(); state.turn = 0; state.progress={}; saveUsed();
     state.activeCategory = null;
     state.currentQuestion = null;
     state.timerLeft = 0;
@@ -111,83 +113,23 @@
   }
 
   function renderTeams() {
-    const safeTeams = state.teams.length ? state.teams : [
-      {name:'', avatar:avatars[0], score:0},
-      {name:'', avatar:avatars[1], score:0},
-      {name:'', avatar:avatars[2], score:0}
-    ];
-    app.innerHTML = `
-      <div class="screen">
-        <div class="page">
-          <div class="container">
-            <div class="page-header">
-              <div>
-                <h2>${t('Set up your teams','إعداد الفرق')}</h2>
-                <p class="footer-note">${t('Choose 1–3 teams and an avatar for each.','اختر من فريق إلى ثلاثة، ثم صورة لكل فريق.')}</p>
-              </div>
-              <button class="secondary-btn" id="backLanding">${t('← Back','← رجوع')}</button>
-            </div>
-            <div class="setup-grid">
-              ${safeTeams.map((team, index) => teamSetupHtml(team, index)).join('')}
-            </div>
-            <div class="panel" style="margin-top:22px;display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap;">
-              <div><strong>${t('Tip:','ملاحظة:')}</strong> ${t('Team names can be written in Arabic or English regardless of the selected database.','يمكن كتابة أسماء الفرق بالعربية أو الإنجليزية مهما كانت لغة قاعدة الأسئلة.')}</div>
-              <button class="primary-btn" id="continueTeams">${t('Continue to Categories','تابع إلى التصنيفات')} →</button>
-            </div>
-          </div>
-        </div>
-      </div>`;
-
-    document.getElementById('backLanding').onclick = () => { state.page = 'landing'; render(); };
-    document.querySelectorAll('.avatar-choice').forEach(btn => {
-      btn.onclick = () => {
-        const idx = Number(btn.dataset.team);
-        document.querySelectorAll(`.avatar-choice[data-team="${idx}"]`).forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-      };
-    });
-    document.getElementById('continueTeams').onclick = async () => {
-      const teams = readTeamsFromForm();
-      if (!teams.length) return showToast(t('Add at least one team.','أضف فريقاً واحداً على الأقل.'));
-      state.teams = teams;
-      try {
-        state.db = await loadDatabase();
-        state.page = 'select';
-        render();
-      } catch (_) {
-        showToast(t('Could not load the question database.','تعذر تحميل قاعدة الأسئلة.'));
-      }
-    };
+    if (!state.teamDraft.length) state.teamDraft = state.teams.length ? state.teams.map(x=>({...x})) : [{name:'',avatar:avatars[0]},{name:'',avatar:avatars[1]}];
+    app.innerHTML = `<div class="screen"><div class="page"><div class="container">
+      <div class="page-header"><div><h2>${t('Set up your teams','إعداد الفرق')}</h2><p class="footer-note">${t('Add as many teams as you need.','أضف العدد الذي تحتاجه من الفرق.')}</p></div><button class="secondary-btn" id="backLanding">${t('← Back','← رجوع')}</button></div>
+      <div class="setup-grid" id="teamEditor">${state.teamDraft.map((team,index)=>teamSetupHtml(team,index)).join('')}</div>
+      <div class="panel team-actions"><button class="secondary-btn" id="addTeam">＋ ${t('Add team','إضافة فريق')}</button><button class="primary-btn" id="continueTeams">${t('Continue to Categories','تابع إلى التصنيفات')} →</button></div>
+    </div></div></div>`;
+    document.getElementById('backLanding').onclick=()=>{state.page='landing';render();};
+    document.getElementById('addTeam').onclick=()=>{document.querySelectorAll('[data-team-name]').forEach((x,i)=>state.teamDraft[i].name=x.value.trim());state.teamDraft.push({name:'',avatar:avatars[state.teamDraft.length%avatars.length]});render();};
+    document.querySelectorAll('.avatar-choice').forEach(btn=>btn.onclick=()=>{const idx=Number(btn.dataset.team);document.querySelectorAll('[data-team-name]').forEach((x,i)=>state.teamDraft[i].name=x.value.trim());state.teamDraft[idx].avatar=btn.dataset.avatar;document.querySelectorAll(`.avatar-choice[data-team="${idx}"]`).forEach(x=>x.classList.toggle('selected',x.dataset.avatar===btn.dataset.avatar));});
+    document.querySelectorAll('[data-remove-team]').forEach(btn=>btn.onclick=()=>{if(state.teamDraft.length<=1)return showToast(t('At least one team is required.','يجب إضافة فريق واحد على الأقل.'));document.querySelectorAll('[data-team-name]').forEach((x,i)=>state.teamDraft[i].name=x.value.trim());state.teamDraft.splice(Number(btn.dataset.removeTeam),1);render();});
+    document.getElementById('continueTeams').onclick=async()=>{const names=[...document.querySelectorAll('[data-team-name]')].map(x=>x.value.trim());if(!names.length||names.some(x=>!x))return showToast(t('Enter a name for every team.','اكتب اسماً لكل فريق.'));state.teams=names.map((name,i)=>({name,avatar:state.teamDraft[i].avatar||avatars[i%avatars.length],score:0}));state.teamDraft=state.teams.map(x=>({...x}));state.progress={};state.turn=0;try{state.db=await loadDatabase();state.page='select';render();}catch(_){showToast(t('Could not load the question database.','تعذر تحميل قاعدة الأسئلة.'));}};
   }
-
-  function teamSetupHtml(team, index) {
-    const active = index < Math.max(1, Math.min(3, state.teams.length || 3));
-    return `<div class="team-setup-card ${active?'':'inactive'}">
-      <h3>${t('Team','الفريق')} ${index+1}</h3>
-      <div class="field"><label class="input-label" for="team-${index}">${t('Team name','اسم الفريق')}</label><input class="text-input" id="team-${index}" value="${escapeHtml(team.name)}" placeholder="${t('Type a team name','اكتب اسم الفريق')}" maxlength="32"></div>
-      <div class="field"><span class="input-label">${t('Avatar','الصورة')}</span>
-        <div class="avatar-grid">${avatars.map((a, i) => `<button type="button" class="avatar-choice ${team.avatar===a?'selected':''}" data-team="${index}" data-avatar="${a}">${a}</button>`).join('')}</div>
-      </div>
-      <div class="field"><label style="display:flex;gap:10px;align-items:center;font-weight:800;"><input type="checkbox" id="active-${index}" ${index < (state.teams.length || 3) ? 'checked':''}> ${t('Use this team','استخدم هذا الفريق')}</label></div>
-    </div>`;
-  }
-
-  function readTeamsFromForm() {
-    const result = [];
-    for (let i=0; i<3; i++) {
-      const use = document.getElementById(`active-${i}`)?.checked;
-      const name = document.getElementById(`team-${i}`)?.value.trim();
-      if (!use) continue;
-      if (!name) { showToast(t(`Enter a name for Team ${i+1}.`, `اكتب اسم الفريق ${i+1}.`)); return []; }
-      const selected = document.querySelector(`.avatar-choice[data-team="${i}"].selected`);
-      result.push({ name, avatar: selected?.dataset.avatar || avatars[i], score: 0 });
-    }
-    return result;
-  }
+  function teamSetupHtml(team,index) { return `<div class="team-setup-card"><div class="team-card-heading"><h3>${t('Team','الفريق')} ${index+1}</h3><button class="danger-btn" data-remove-team="${index}" type="button">✕ ${t('Remove','حذف')}</button></div><div class="field"><label class="input-label" for="team-${index}">${t('Team name','اسم الفريق')}</label><input data-team-name class="text-input" id="team-${index}" value="${escapeHtml(team.name)}" placeholder="${t('Type a team name','اكتب اسم الفريق')}" maxlength="32"></div><div class="field"><span class="input-label">${t('Avatar','الصورة')}</span><div class="avatar-grid">${avatars.map(a=>`<button type="button" class="avatar-choice ${team.avatar===a?'selected':''}" data-team="${index}" data-avatar="${a}">${a}</button>`).join('')}</div></div></div>`; }
 
   function renderTopbar(title='') {
     return `<div class="topbar"><div class="topbar-row">
-      <div class="team-strip">${scoreCells(0, 1, 2)}</div>
+      <div class="team-strip">${scoreCells(...state.teams.map((_,i)=>i))}</div>
       <div class="topbar-title">${escapeHtml(title || t('TEAM QUIZ ARENA','ساحة تحدي الفرق'))}</div>
       <div class="header-actions" style="justify-content:flex-end;"><button class="secondary-btn" id="muteBtn" title="Sound">${FX.isMuted()?'🔇':'🔊'}</button><button class="secondary-btn" id="backCategories">${t('← Categories','← التصنيفات')}</button></div>
     </div></div>`;
@@ -202,11 +144,14 @@
   function wireBack() { wireMute(); document.getElementById('backCategories')?.addEventListener('click', () => { state.activeCategory=null; state.currentQuestion=null; state.page='categories'; render(); }); }
 
   const visibleCategories = () => state.db.categories.filter(c => state.selected?.has(c.id));
+  const requiredPerCategory = 4;
+  function teamCategoryCount(teamIndex,categoryId){return Number(state.progress[`${teamIndex}:${categoryId}`]||0);}
+  function allRoundsComplete(){return state.teams.every((_,ti)=>[...state.selected].every(cid=>teamCategoryCount(ti,cid)>=requiredPerCategory));}
 
   function renderSelect() {
     if (!state.db) { state.page = 'teams'; return render(); }
     const cats = state.db.categories;
-    if (!state.selected) state.selected = new Set(cats.map(c => c.id));
+    if (!state.selected) state.selected = new Set(cats.slice(0,6).map(c => c.id));
     state.selected = new Set([...state.selected].filter(id => cats.some(c => c.id === id)));
     const sel = state.selected;
     app.innerHTML = `<div class="screen"><div class="page"><div class="container">
@@ -219,15 +164,15 @@
       </div></div></div></div>`;
     const update = () => {
       document.querySelectorAll('.select-card').forEach(b => { const on = state.selected.has(b.dataset.cat); b.classList.toggle('checked', on); b.setAttribute('aria-pressed', on); });
-      document.getElementById('selCount').textContent = `${state.selected.size}/${cats.length} ${t('selected','محدد')}`;
+      document.getElementById('selCount').textContent = `${state.selected.size}/6 ${t('selected','محدد')}`;
     };
     update();
-    document.querySelectorAll('.select-card').forEach(b => b.onclick = () => { const id = b.dataset.cat; state.selected.has(id) ? state.selected.delete(id) : state.selected.add(id); update(); });
-    document.getElementById('selAll').onclick = () => { cats.forEach(c => state.selected.add(c.id)); update(); };
+    document.querySelectorAll('.select-card').forEach(b => b.onclick = () => { const id = b.dataset.cat; if(state.selected.has(id))state.selected.delete(id);else{if(state.selected.size>=6)return showToast(t('Choose up to 6 categories only.','يمكن اختيار 6 تصنيفات كحد أقصى.'));state.selected.add(id);}update(); });
+    document.getElementById('selAll').onclick = () => { state.selected=new Set(cats.slice(0,6).map(c=>c.id)); update(); };
     document.getElementById('selNone').onclick = () => { state.selected.clear(); update(); };
     document.getElementById('backTeams').onclick = () => { state.page = 'teams'; render(); };
     document.getElementById('goCategories').onclick = () => {
-      if (!state.selected.size) return showToast(t('Select at least one category.','اختر تصنيفاً واحداً على الأقل.'));
+      if (!state.selected.size) return showToast(t('Select at least one category.','اختر تصنيفاً واحداً على الأقل.')); if(state.selected.size>6)return showToast(t('Choose up to 6 categories only.','يمكن اختيار 6 تصنيفات كحد أقصى.'));
       state.page = 'categories'; render();
     };
   }
@@ -236,18 +181,20 @@
     if (!state.db) { state.page='teams'; return render(); }
     if (!state.selected?.size) { state.page='select'; return render(); }
     app.innerHTML = `<div class="screen">${renderTopbar(t('Choose a category','اختر تصنيفاً'))}<div class="page"><div class="container">
-      <div class="page-header"><div><h2>${t('Categories','التصنيفات')}</h2><p class="footer-note">${turnText()}</p></div><div class="header-actions"><button class="secondary-btn" id="editCats">🗂 ${t('Change categories','تغيير التصنيفات')}</button><button class="primary-btn" id="finishGame">🏆 ${t('Finish Game','إنهاء اللعبة')}</button></div></div>
-      <div class="categories-grid">${visibleCategories().map((c, i) => `<button class="category-card" style="--i:${i}" data-category="${escapeHtml(c.id)}"><div class="category-title">${escapeHtml(c.name)}</div><div class="category-box">${c.icon || '❓'}</div><div class="category-footer">${(c.questions||[]).filter(q=>!state.used.has(q.id)).length}/${c.questions?.length || 0} ${t('fresh','جديد')}</div></button>`).join('')}</div>
+      <div class="page-header"><div><h2>${t('Categories','التصنيفات')}</h2><p class="footer-note turn-banner">${turnText()}</p><p class="footer-note">${t('Each team answers 4 questions per selected category.','لكل فريق 4 أسئلة من كل تصنيف مختار.')}</p></div><div class="header-actions"><button class="secondary-btn" id="editCats">🗂 ${t('Change categories','تغيير التصنيفات')}</button><button class="primary-btn" id="finishGame">🏆 ${t('Finish Game','إنهاء اللعبة')}</button></div></div>
+      <div class="categories-grid">${visibleCategories().map((c,i)=>{const done=teamCategoryCount(state.turn,c.id)>=requiredPerCategory;return `<button class="category-card ${done?'category-done':''}" style="--i:${i}" data-category="${escapeHtml(c.id)}" ${done?'disabled':''}><div class="category-title">${escapeHtml(c.name)}</div><div class="category-box">${c.icon||'❓'}</div><div class="category-footer">${teamCategoryCount(state.turn,c.id)}/${requiredPerCategory} ${t('questions for this team','أسئلة لهذا الفريق')} ${done?'✓':''}</div></button>`}).join('')}</div>
     </div></div></div>`;
     wireBack();
     document.querySelectorAll('[data-category]').forEach(btn => btn.onclick = () => startCategory(btn.dataset.category));
     document.getElementById('editCats').onclick = () => { state.page = 'select'; render(); };
-    document.getElementById('finishGame').onclick = () => { state.page='winner'; render(); };
+    document.getElementById('finishGame').onclick = () => { if(!allRoundsComplete())return showToast(t('Finish all team rounds before showing the winners.','أكمل جولات جميع الفرق قبل عرض الفائزين.'));state.page='winner';render(); };
   }
 
   function startCategory(categoryId) {
     const category = state.db.categories.find(c => c.id === categoryId);
     if (!category) return;
+    if(teamCategoryCount(state.turn,categoryId)>=requiredPerCategory)return showToast(t('This team has finished this category.','أنهى هذا الفريق أسئلة هذا التصنيف.'));
+    state.progress[`${state.turn}:${categoryId}`]=teamCategoryCount(state.turn,categoryId)+1;
     state.activeCategory = category;
     state.currentQuestion = pickQuestion(category);
     state.used.add(state.currentQuestion.id);
@@ -266,13 +213,13 @@
     app.innerHTML = `<div class="screen">${renderTopbar(state.activeCategory?.name || '')}<div class="page"><div class="container">
       <div class="page-header"><div><h2>${t('Question','السؤال')}</h2><p class="footer-note">${t('Press Start Timer when the host is ready.','اضغط ابدأ المؤقت عندما يكون مقدم اللعبة مستعداً.')}</p></div><div><span class="hero-badge">+${q.points} ${t('points','نقطة')}</span></div></div>
       <div class="question-wrap">
-        <div class="panel question-card"><div><div class="question-number">${t('Question','السؤال')} • ${escapeHtml(q.type || 'text').toUpperCase()}</div><div class="question-text">${escapeHtml(q.question || '')}</div>${mediaHtml(q.media, q.type)}</div><div><button class="primary-btn" id="revealAnswer">${t('Reveal Answer','إظهار الإجابة')} →</button></div></div>
         <div class="panel timer-card" id="timerCard"><div style="text-align:center;font-weight:800;">${t('Timer','المؤقت')}</div><div class="timer-circle" id="timerCircle" style="--p:100">${state.timerLeft}</div><button class="primary-btn" id="startTimer">▶ ${t('Start Timer','ابدأ المؤقت')}</button><div class="footer-note" id="timerHint">${t('Timer is not running.','المؤقت غير قيد التشغيل.')}</div></div>
+        <div class="panel question-card"><div><div class="question-number">${t('Question','السؤال')} • ${escapeHtml(q.type || 'text').toUpperCase()}</div><div class="question-text">${escapeHtml(q.question || '')}</div>${mediaHtml(q.media,q.type)}</div><div><button class="primary-btn" id="revealAnswer">${t('Reveal Answer','إظهار الإجابة')} →</button></div></div>
       </div>
     </div></div></div>`;
     wireBack();
-    document.getElementById('startTimer').onclick = () => startTimer();
-    document.getElementById('revealAnswer').onclick = () => { stopTimer(); state.page='answer'; render(); };
+    document.getElementById('startTimer').onclick=()=>startTimer();
+    document.getElementById('revealAnswer').onclick=()=>{stopTimer();state.page='answer';render();};
   }
 
   function startTimer() {
@@ -338,14 +285,14 @@
     </div></div></div>`;
     wireBack();
     document.querySelectorAll('[data-claim]').forEach(btn => btn.onclick = () => claim(Number(btn.dataset.claim)));
-    document.getElementById('claimNone').onclick = () => { FX.sfx('buzzer'); advanceTurn(); state.page='categories'; render(); };
+    document.getElementById('claimNone').onclick = () => { FX.sfx('buzzer'); advanceTurn(); state.page=allRoundsComplete()?'winner':'categories';render();};
   }
 
   function claim(teamIndex) {
     const from = state.teams[teamIndex].score;
     state.teams[teamIndex].score += Number(state.currentQuestion?.points || 0);
     advanceTurn();
-    state.page = 'categories';
+    state.page = allRoundsComplete() ? 'winner' : 'categories';
     state.currentQuestion = null;
     render();
     FX.sfx('correct'); FX.confetti(); FX.bump(teamIndex, from, state.teams[teamIndex].score);
@@ -355,15 +302,15 @@
     const ranked = [...state.teams].sort((a,b) => b.score-a.score);
     const groups = []; // teams with equal scores share one stand
     ranked.forEach(tm => { const g = groups[groups.length-1]; if (g && g[0].score === tm.score) g.push(tm); else groups.push([tm]); });
-    app.innerHTML = `<div class="screen"><div class="topbar"><div class="topbar-row"><div class="team-strip">${scoreCells(0,1,2)}</div><div class="topbar-title">🏆 ${t('Winners','الفائزون')}</div><div class="header-actions" style="justify-content:flex-end;"><button class="secondary-btn" id="muteBtn" title="Sound">${FX.isMuted()?'🔇':'🔊'}</button><button class="secondary-btn" id="backCategories">${t('← Categories','← التصنيفات')}</button></div></div></div><div class="page"><div class="container">
-      <div class="page-header"><div><h2>${t('Final Standings','الترتيب النهائي')}</h2><p class="footer-note">${t('Tied teams share the same stand.','الفرق المتعادلة تتشارك المنصة نفسها.')}</p></div></div>
+    app.innerHTML = `<div class="screen"><div class="topbar"><div class="topbar-row"><div class="team-strip">${scoreCells(...state.teams.map((_,i)=>i))}</div><div class="topbar-title">🏆 ${t('Winners','الفائزون')}</div><div class="header-actions" style="justify-content:flex-end;"><button class="secondary-btn" id="muteBtn" title="Sound">${FX.isMuted()?'🔇':'🔊'}</button><button class="secondary-btn" id="backCategories">${t('← Categories','← التصنيفات')}</button></div></div></div><div class="page"><div class="container">
+      <div class="winner-banner"><div class="party-cones">🎉　🎊　🎉　🎊　🎉</div><div class="winner-ribbon">🏆 ${t('CHAMPIONS!','الأبطال!')} 🏆</div><div class="party-cones">🎊　🎉　🎊　🎉　🎊</div></div><div class="page-header"><div><h2>${t('Final Standings','الترتيب النهائي')}</h2><p class="footer-note">${t('Tied teams share the same stand.','الفرق المتعادلة تتشارك المنصة نفسها.')}</p></div></div>
       <div class="panel"><div class="podium">${podiumPlace(groups[1],1)}${podiumPlace(groups[0],0)}${podiumPlace(groups[2],2)}</div></div>
       <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:22px;"><button class="primary-btn" id="replay">↻ ${t('Same teams, start from zero','نفس الفرق، ابدأ من الصفر')}</button><button class="secondary-btn" id="newGame">🏠 ${t('Back to start (new teams)','العودة للبداية (فرق جديدة)')}</button></div>
     </div></div></div>`;
     wireBack();
     FX.sfx('fanfare'); FX.confetti(260);
-    document.getElementById('replay').onclick = () => { resetGameData(); state.page='categories'; render(); };
-    document.getElementById('newGame').onclick = () => { resetGameData(); state.teams = []; state.selected = null; state.page = 'landing'; render(); };
+    document.getElementById('replay').onclick = () => { resetGameData(); state.page='categories';render();};
+    document.getElementById('newGame').onclick = () => { resetGameData(); state.teams = []; state.teamDraft=[]; state.selected = null; state.page = 'landing'; render(); };
   }
 
   function podiumPlace(group, i) {

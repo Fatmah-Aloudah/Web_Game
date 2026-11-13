@@ -1,17 +1,17 @@
 # Team Quiz Arena — Local / GitHub-ready
 
-A static bilingual quiz game for up to 3 teams. The supplied category-screen reference is used as the visual direction for the scoreboard + category grid.
+A static bilingual quiz game for flexible team counts. The supplied category-screen reference is used as the visual direction for the scoreboard + category grid.
 
 ## What is included
 
 - Landing page
-- Team setup page: 1–3 teams, Arabic/English names, avatar selection, language
+- Team setup page: add or remove as many teams as needed, Arabic/English names, avatar selection, language
 - Category page with all team scores in the header
 - Random question from the chosen category
 - Start Timer button with configurable per-question seconds
 - Answer / reveal page
 - Point-claim page with one button per team + “No one” button
-- Winner podium: 1st taller than 2nd, 2nd taller than 3rd
+- Winner podium: 1st taller than 2nd, 2nd taller than 3rd, with a championship banner and confetti
 - Replay: clears points and used-question history
 - English and Arabic JSON databases
 - Question/answer support for text plus media types: `image`, `audio`, `video`
@@ -111,7 +111,7 @@ Edit the appropriate JSON file, commit/push the change, and refresh the game. Th
 - **Shuffled, non-repeating questions**: each category is a shuffled deck; a question is never asked twice until the whole category is used, then it is reshuffled (never starting with the last question). Used questions are remembered across page refreshes; **Same teams, start from zero** and **Back to start (new teams)** both clear them.
 - **Team turns**: the category picker rotates between teams; the active team glows in the scoreboard.
 - **Fun**: sound effects (mute button 🔊 in the header), confetti, animated timer ring with a shake in the last 5 seconds, flip-in answer reveal, score count-up, and a rising podium. Motion is disabled automatically for users who prefer reduced motion.
-- **Test data**: every category has 3–4 questions, plus a *Media Lab* category with an image (with answer image), an audio and a video example in `assets/`.
+- **Media Lab**: includes image, audio and video examples in `assets/`.
 
 ## Flow update
 
