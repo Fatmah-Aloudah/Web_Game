@@ -580,3 +580,159 @@ button, .select-card, .category-card { -webkit-tap-highlight-color: transparent;
   grid-row: 2;
   min-width: 0;
 }
+
+
+/* ===== Team identity: custom colors, keyboard emoji entry, and a prominent turn display ===== */
+.team-setup-card {
+  border: 4px solid var(--team-color, var(--ink));
+  box-shadow: 0 7px 0 color-mix(in srgb, var(--team-color, #151515) 28%, transparent);
+}
+.team-color-grid {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(26px, 1fr));
+  gap: 9px;
+  margin: 8px 0 12px;
+}
+.team-color-choice {
+  width: 100%;
+  aspect-ratio: 1;
+  min-width: 27px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: var(--swatch);
+  box-shadow: 0 0 0 2px #657083;
+  padding: 0;
+  transition: transform .14s ease, box-shadow .14s ease;
+}
+.team-color-choice:hover { transform: scale(1.12); }
+.team-color-choice.selected {
+  box-shadow: 0 0 0 4px var(--team-color, #151515), 0 0 0 7px rgba(20,30,50,.12);
+  transform: scale(1.08);
+}
+.custom-color-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border: 2px solid #dce2ed;
+  border-radius: 12px;
+  font-weight: 800;
+  background: #f8faff;
+}
+.custom-color-label input[type="color"] {
+  width: 48px;
+  height: 38px;
+  padding: 2px;
+  border: 2px solid #26334a;
+  border-radius: 9px;
+  background: #fff;
+  cursor: pointer;
+}
+.avatar-entry {
+  display: grid;
+  grid-template-columns: 64px minmax(0,1fr);
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 7px;
+}
+.avatar-preview {
+  min-height: 58px;
+  display: grid;
+  place-items: center;
+  border: 3px solid var(--team-color, #26334a);
+  border-radius: 15px;
+  background: color-mix(in srgb, var(--team-color, #64748b) 12%, white);
+  font-size: 34px;
+}
+.emoji-text-input { min-width: 0; font-size: 23px; }
+.emoji-hint { margin: 0 0 9px; color: #647087; font-size: 13px; font-weight: 700; }
+.avatar-grid { grid-template-columns: repeat(12, minmax(0,1fr)); gap: 7px; }
+.avatar-choice { min-width: 0; font-size: clamp(20px,2.1vw,27px); }
+.avatar-choice.selected { background: color-mix(in srgb, var(--team-color, #ffcf33) 22%, white); border-color: var(--team-color, var(--ink)); box-shadow: 0 0 0 2px var(--team-color, var(--ink)), 3px 3px 0 var(--ink); }
+
+/* Each scoreboard tile uses its team's color; the active team receives a clear glow. */
+.team-score { border-color: var(--team-color, var(--ink)); }
+.team-score .avatar { border-color: var(--team-color, var(--ink)); }
+.team-score.turn {
+  border-color: var(--team-color, var(--accent));
+  background: color-mix(in srgb, var(--team-color, var(--accent)) 17%, white);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--team-color, var(--accent)) 32%, transparent), 0 0 22px color-mix(in srgb, var(--team-color, var(--accent)) 40%, transparent), 5px 5px 0 var(--ink);
+  transform: translateY(-4px) scale(1.05);
+}
+.team-score.turn .score { color: var(--team-color, var(--ink)); }
+.team-score.turn .name::after {
+  content: '▶';
+  margin-inline-start: auto;
+  color: var(--team-color, var(--ink));
+  font-size: 16px;
+}
+
+.turn-stage {
+  width: min(920px, 100%);
+  margin: 4px auto 28px;
+  padding: clamp(18px,3vw,30px) 20px;
+  border: 5px solid var(--team-color, var(--accent));
+  border-radius: 26px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--team-color, #ffcf33) 13%, white), #fff 58%, color-mix(in srgb, var(--team-color, #ffcf33) 17%, white));
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--team-color, var(--accent)) 18%, transparent), 0 12px 0 color-mix(in srgb, var(--team-color, var(--ink)) 35%, transparent), 0 18px 34px rgba(20,30,50,.12);
+  text-align: center;
+  animation: teamTurnPulse 1.8s ease-in-out infinite alternate;
+}
+.turn-stage-kicker {
+  color: var(--team-color, var(--ink));
+  font-size: clamp(17px,2vw,23px);
+  font-weight: 1000;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.turn-stage-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 7px 0;
+  color: #17233d;
+  font-size: clamp(35px,6vw,64px);
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+}
+.turn-stage-name strong { font-weight: 1000; }
+.turn-stage-avatar {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: clamp(58px,7vw,82px);
+  height: clamp(58px,7vw,82px);
+  border: 4px solid var(--team-color, var(--ink));
+  border-radius: 50%;
+  background: #fff;
+  font-size: clamp(34px,4.5vw,52px);
+  box-shadow: 0 5px 0 color-mix(in srgb, var(--team-color, var(--ink)) 28%, transparent);
+}
+.turn-stage-instruction {
+  margin-top: 8px;
+  color: #42506a;
+  font-size: clamp(18px,2.4vw,27px);
+  font-weight: 900;
+}
+@keyframes teamTurnPulse {
+  from { box-shadow: 0 0 0 4px color-mix(in srgb, var(--team-color, var(--accent)) 14%, transparent), 0 9px 0 color-mix(in srgb, var(--team-color, var(--ink)) 25%, transparent), 0 14px 28px rgba(20,30,50,.10); }
+  to { box-shadow: 0 0 0 8px color-mix(in srgb, var(--team-color, var(--accent)) 24%, transparent), 0 12px 0 color-mix(in srgb, var(--team-color, var(--ink)) 40%, transparent), 0 18px 34px rgba(20,30,50,.15); }
+}
+.standing-row { border-inline-start: 7px solid var(--team-color, #d8dce5); }
+.podium-person .big-avatar { outline: 4px solid var(--team-color, transparent); outline-offset: 2px; border-radius: 50%; }
+
+@media (max-width: 900px) {
+  .team-color-grid { grid-template-columns: repeat(10,minmax(24px,1fr)); }
+  .avatar-grid { grid-template-columns: repeat(10,minmax(0,1fr)); }
+}
+@media (max-width: 650px) {
+  .team-color-grid { grid-template-columns: repeat(8,minmax(25px,1fr)); gap: 10px; }
+  .avatar-grid { grid-template-columns: repeat(8,minmax(0,1fr)); gap: 8px; }
+  .avatar-choice { font-size: 23px; }
+  .turn-stage { margin: 0 auto 22px; padding: 17px 10px; border-width: 4px; }
+  .turn-stage-name { gap: 9px; font-size: clamp(29px,8vw,43px); }
+  .turn-stage-avatar { width: 54px; height: 54px; font-size: 32px; }
+  .turn-stage-kicker { font-size: 16px; }
+  .turn-stage-instruction { font-size: 18px; }
+}

@@ -1,4 +1,4 @@
-# Team Quiz Arena — Bilingual v3
+# Team Quiz Arena — Bilingual v3.1
 
 A responsive, local-first team quiz game in Arabic and English. The two language banks use independently authored question content within matching category IDs; they are not English-to-Arabic translations of one question list.
 
@@ -8,12 +8,20 @@ A responsive, local-first team quiz game in Arabic and English. The two language
 - **150 questions per category per language**: 1,500 English questions and 1,500 Arabic questions.
 - **Up to 6 categories per match**.
 - **Exactly 4 completed questions per selected category for each team**. A question counts when the host awards points or selects “No one”; backing out before completion returns it to the deck.
-- Add or remove as many teams as needed; active team turns are highlighted in the scoreboard.
+- Add or remove as many teams as needed; each team can choose a distinct preset or custom color, and the active team is highlighted in that color.
+- Expanded emoji picker plus a keyboard/paste emoji field for custom team avatars.
+- Large centered active-turn banner shows the current team name, avatar and chosen color.
 - Timer shown above the question on desktop, tablet and mobile.
 - Responsive layout, horizontally scrollable team score rail, and a complete final standings list.
 - Winner screen with championship banner, podium, confetti and celebration sounds.
 - Crossword questions render an actual intersecting blank-cell grid with across/down clues.
 - Question decks are shuffled without re-asking a question until a category deck is exhausted.
+
+## Team identity and turns
+
+- 20 preset team colors plus a custom color picker. Team colors are kept distinct, including for larger team counts.
+- 88 emoji options plus a keyboard/paste field for custom emoji avatars.
+- A large, centered active-turn banner and color-matched scoreboard highlight make it easy to see which team plays next.
 
 ## Categories
 
