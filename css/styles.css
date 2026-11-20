@@ -736,3 +736,86 @@ button, .select-card, .category-card { -webkit-tap-highlight-color: transparent;
   .turn-stage-kicker { font-size: 16px; }
   .turn-stage-instruction { font-size: 18px; }
 }
+
+
+/* ===== v4: center team emoji controls and the champions heading ===== */
+.team-setup-card .avatar-entry {
+  grid-template-columns: 76px minmax(0,1fr);
+  justify-items: center;
+}
+.team-setup-card .avatar-preview {
+  width: 68px;
+  min-height: 68px;
+  justify-self: center;
+  text-align: center;
+  line-height: 1;
+}
+.team-setup-card .emoji-text-input {
+  text-align: center;
+  direction: auto;
+}
+.team-setup-card .avatar-grid {
+  justify-items: center;
+  align-items: center;
+}
+.team-setup-card .avatar-choice {
+  display: grid;
+  place-items: center;
+  justify-self: center;
+  align-self: center;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  text-align: center;
+  vertical-align: middle;
+}
+.winner-banner {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto minmax(0,1fr);
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+.winner-ribbon {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  align-self: center;
+  width: max-content;
+  max-width: 100%;
+  text-align: center;
+  white-space: normal;
+}
+.winner-banner .party-cones-left {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+}
+.winner-banner .party-cones-right {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+}
+@media (max-width: 650px) {
+  .team-setup-card .avatar-entry {
+    grid-template-columns: 64px minmax(0,1fr);
+  }
+  .team-setup-card .avatar-preview {
+    width: 58px;
+    min-height: 58px;
+  }
+  .winner-banner {
+    grid-template-columns: minmax(0,1fr) minmax(0,3fr) minmax(0,1fr);
+    gap: 4px;
+    padding-inline: 7px;
+  }
+  .winner-banner .party-cones {
+    font-size: clamp(16px,4vw,24px);
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+  .winner-ribbon {
+    font-size: clamp(25px,6.5vw,38px);
+    line-height: 1.1;
+  }
+}

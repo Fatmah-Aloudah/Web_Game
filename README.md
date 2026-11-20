@@ -1,11 +1,11 @@
-# Team Quiz Arena — Bilingual v3.1
+# Team Quiz Arena — Bilingual v4
 
 A responsive, local-first team quiz game in Arabic and English. The two language banks use independently authored question content within matching category IDs; they are not English-to-Arabic translations of one question list.
 
 ## What's included
 
 - **10 matching categories** in both languages.
-- **150 questions per category per language**: 1,500 English questions and 1,500 Arabic questions.
+- **150 questions per category per language**: 1,500 English questions and 1,500 Arabic questions. The Arabic bank is written in easy, Saudi-friendly Arabic and focuses more on familiar Saudi cities, food, customs, geography and history.
 - **Up to 6 categories per match**.
 - **Exactly 4 completed questions per selected category for each team**. A question counts when the host awards points or selects “No one”; backing out before completion returns it to the deck.
 - Add or remove as many teams as needed; each team can choose a distinct preset or custom color, and the active team is highlighted in that color.
@@ -75,7 +75,7 @@ Then open `http://localhost:8000`.
 - `db/en.json`
 - `db/ar.json`
 
-Both have the same category IDs and 150 questions per category. Each question includes an ID, type, question, answer, points and timer. Media questions also include a local asset path. Crossword questions include the grid coordinates and clue data.
+Both have the same category IDs and 150 questions per category. The English bank is unchanged in v4; the Arabic bank has been rewritten with easy, locally familiar Saudi-focused questions and updated Arabic visual puzzles. Each question includes an ID, type, question, answer, points and timer. Media questions also include a local asset path. Crossword questions include the grid coordinates and clue data.
 
 ## GitHub hosting
 
