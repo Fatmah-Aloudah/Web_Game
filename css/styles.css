@@ -393,3 +393,190 @@ h1, h2, h3, p { margin-top: 0; }
   .podium { min-height:330px; }
   .winner-banner { padding:14px 8px; }
 }
+
+/* ===== v3 media, crossword, large-team and mobile refinements ===== */
+html, body { overflow-x: hidden; }
+button, .select-card, .category-card { -webkit-tap-highlight-color: transparent; }
+
+/* Keep every team visible in a comfortable, horizontally scrollable score rail. */
+.topbar-row { grid-template-columns: minmax(0, 1.6fr) auto minmax(0, 1fr); }
+.team-strip {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  width: 100%;
+  max-width: 100%;
+  max-height: 172px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 6px 6px 12px;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+.team-score {
+  flex: 0 0 148px;
+  min-width: 132px;
+  scroll-snap-align: start;
+  border-width: 2px;
+}
+.team-score.turn {
+  border-width: 4px;
+  background: #fff2b8;
+  box-shadow: 0 0 0 4px rgba(255,207,51,.35), 5px 5px 0 var(--ink);
+}
+.team-score .name { font-size: 15px; }
+.team-score .score { font-size: 28px; }
+.turn-banner {
+  font-size: clamp(21px, 3vw, 34px);
+  line-height: 1.2;
+  max-width: 100%;
+  margin: 8px 0 10px;
+  padding: 14px 24px;
+  text-align: center;
+  animation: turnGlow 1.35s ease-in-out infinite alternate;
+}
+
+/* Real crossword letter grid. Empty squares remain visually dark. */
+.crossword-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 18px 0 22px;
+  padding: 18px;
+  border: 2px solid #d7deea;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #f8fbff, #edf3ff);
+  overflow-x: auto;
+  max-width: 100%;
+}
+.crossword-grid {
+  display: grid;
+  gap: 3px;
+  width: max-content;
+  min-width: 0;
+}
+.crossword-cell {
+  width: 100%;
+  min-width: 26px;
+  aspect-ratio: 1;
+  position: relative;
+  display: grid;
+  place-items: center;
+  border: 2px solid #29364b;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0 2px 0 rgba(20,35,60,.12);
+}
+.crossword-cell small {
+  position: absolute;
+  top: 1px;
+  inset-inline-start: 4px;
+  font-size: 10px;
+  font-weight: 900;
+  color: #64748b;
+}
+.crossword-empty { min-width: 26px; aspect-ratio: 1; }
+.crossword-hint { margin: 0; color: #46566f; font-weight: 800; font-size: 15px; }
+
+/* Media controls use the available width on desktop and touch screens. */
+.media-frame { margin: 18px 0; }
+.image-frame { background: linear-gradient(135deg,#edf4ff,#fff); padding: 10px; }
+.media-frame img {
+  width: 100%;
+  max-height: min(58vh, 520px);
+  min-height: 160px;
+  object-fit: contain;
+  background: transparent;
+  border-radius: 10px;
+}
+.video-frame { background: #07101f; padding: 8px; }
+.video-frame video { width: 100%; max-height: min(58vh, 520px); object-fit: contain; background: #07101f; border-radius: 12px; }
+.audio-box { display: flex; flex-direction: column; align-items: stretch; gap: 12px; background: linear-gradient(135deg,#f2f5ff,#e8edff); }
+.audio-box audio { width: 100%; min-height: 42px; }
+.media-caption { font-size: 18px; font-weight: 900; color: #263554; }
+
+/* Full standings make the winner page useful even when there are many teams. */
+.standings-panel { margin-top: 22px; }
+.standings-panel h3 { font-size: clamp(24px, 3vw, 32px); margin: 0 0 16px; }
+.standings-list { display: grid; gap: 9px; }
+.standing-row {
+  display: grid;
+  grid-template-columns: 42px 42px minmax(0,1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border: 2px solid #d8dce5;
+  border-radius: 14px;
+  background: #fff;
+}
+.standing-rank { font-size: 21px; font-weight: 1000; color: #6a7280; text-align: center; }
+.standing-avatar { font-size: 27px; text-align: center; }
+.standing-name { min-width: 0; overflow-wrap: anywhere; font-size: 18px; }
+.standing-score { font-weight: 1000; font-size: 19px; white-space: nowrap; }
+.standing-row:first-child { border-color: #e3b42d; background: #fff8d8; box-shadow: 3px 3px 0 rgba(196,145,15,.22); }
+
+/* Avoid tiny controls and clipped text on narrow screens. */
+@media (max-width: 900px) {
+  .topbar-row { grid-template-columns: minmax(0,1fr); }
+  .team-strip { width: 100%; max-height: 118px; }
+  .team-score { flex-basis: 145px; }
+  .topbar-title { order: -1; }
+}
+@media (max-width: 650px) {
+  .container { width: calc(100% - 22px); }
+  .topbar { padding: 10px 8px; border-bottom-width: 4px; }
+  .topbar-row { gap: 8px; }
+  .team-strip { gap: 8px; max-height: 106px; padding: 5px 3px 9px; }
+  .team-score { flex-basis: 126px; min-width: 120px; padding: 7px 8px; }
+  .team-score .name { font-size: 13px; gap: 5px; }
+  .team-score .score { font-size: 23px; }
+  .team-score .avatar { width: 28px; height: 28px; font-size: 16px; }
+  .turn-banner { font-size: 21px; padding: 12px 14px; }
+  .question-wrap .timer-card { gap: 10px; padding: 12px; }
+  .question-wrap .timer-card .timer-circle { width: 92px; height: 92px; font-size: 36px; border-width: 6px; }
+  .question-wrap .timer-card .primary-btn { min-width: 0; width: 100%; }
+  .question-card { min-height: 280px; }
+  .question-text { font-size: clamp(25px, 7.5vw, 39px); overflow-wrap: anywhere; }
+  .media-frame img { min-height: 120px; max-height: 44vh; }
+  .video-frame video { max-height: 44vh; }
+  .crossword-wrap { padding: 12px; }
+  .crossword-grid { gap: 2px; }
+  .crossword-cell { min-width: 25px; }
+  .crossword-empty { min-width: 25px; }
+  .standing-row { grid-template-columns: 30px 34px minmax(0,1fr) auto; gap: 7px; padding: 9px; }
+  .standing-rank { font-size: 17px; }
+  .standing-avatar { font-size: 22px; }
+  .standing-name { font-size: 15px; }
+  .standing-score { font-size: 15px; }
+  .winner-banner { gap: 6px; }
+  .party-cones { font-size: 22px; }
+}
+
+/* The timer is always a full-width row ABOVE the question, including desktop. */
+.question-wrap {
+  display: grid;
+  grid-template-columns: minmax(0,1fr);
+  gap: 16px;
+  align-items: stretch;
+}
+.question-wrap .timer-card {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+  min-height: 150px;
+  padding: 18px 24px;
+  position: static;
+}
+.question-wrap .timer-card .timer-circle { margin: 0 8px; }
+.question-wrap .timer-card .primary-btn { min-width: 210px; }
+.question-wrap .question-card {
+  grid-column: 1;
+  grid-row: 2;
+  min-width: 0;
+}

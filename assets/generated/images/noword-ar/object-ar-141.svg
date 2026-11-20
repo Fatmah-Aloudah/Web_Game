@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 200 200">
+    <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#f0eaff"/><stop offset="1" stop-color="#c8b0ff"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="7" stdDeviation="5" flood-opacity=".18"/></filter></defs>
+    <rect width="200" height="200" rx="28" fill="url(#g)"/><path d="M100 13 L187 100 L100 187 L13 100 Z" fill="white" opacity=".23"/><circle cx="100" cy="100" r="72" fill="none" stroke="white" stroke-width="7" opacity=".7"/>
+    <text x="100" y="127" text-anchor="middle" font-size="104" font-family="Noto Color Emoji, Apple Color Emoji, Segoe UI Emoji, sans-serif" filter="url(#s)">🐯</text>
+    </svg>

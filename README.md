@@ -1,38 +1,59 @@
-# Team Quiz Arena — Local / GitHub-ready
+# Team Quiz Arena — Bilingual v3
 
-A static bilingual quiz game for flexible team counts. The supplied category-screen reference is used as the visual direction for the scoreboard + category grid.
+A responsive, local-first team quiz game in Arabic and English. The two language banks use independently authored question content within matching category IDs; they are not English-to-Arabic translations of one question list.
 
-## What is included
+## What's included
 
-- Landing page
-- Team setup page: add or remove as many teams as needed, Arabic/English names, avatar selection, language
-- Category page with all team scores in the header
-- Random question from the chosen category
-- Start Timer button with configurable per-question seconds
-- Answer / reveal page
-- Point-claim page with one button per team + “No one” button
-- Winner podium: 1st taller than 2nd, 2nd taller than 3rd, with a championship banner and confetti
-- Replay: clears points and used-question history
-- English and Arabic JSON databases
-- Question/answer support for text plus media types: `image`, `audio`, `video`
-- Optional GitHub Raw JSON endpoints in `js/config.js`
-- No framework and no build step
+- **10 matching categories** in both languages.
+- **150 questions per category per language**: 1,500 English questions and 1,500 Arabic questions.
+- **Up to 6 categories per match**.
+- **Exactly 4 completed questions per selected category for each team**. A question counts when the host awards points or selects “No one”; backing out before completion returns it to the deck.
+- Add or remove as many teams as needed; active team turns are highlighted in the scoreboard.
+- Timer shown above the question on desktop, tablet and mobile.
+- Responsive layout, horizontally scrollable team score rail, and a complete final standings list.
+- Winner screen with championship banner, podium, confetti and celebration sounds.
+- Crossword questions render an actual intersecting blank-cell grid with across/down clues.
+- Question decks are shuffled without re-asking a question until a category deck is exhausted.
+
+## Categories
+
+| ID | English | العربية |
+|---|---|---|
+| `general` | General Knowledge | معلومات عامة |
+| `science` | Science | العلوم |
+| `history` | History | التاريخ |
+| `mixed` | Mixed Challenge | تحدي متنوع |
+| `media` | Media Lab | مختبر الوسائط |
+| `missing` | Complete the Word | أكمل الكلمة |
+| `crossword` | Crossword | كلمات متقاطعة |
+| `songs` | Sound & Melody | تحدي الأصوات والألحان |
+| `cartoons` | Cartoon Challenge | تحدي الرسوم |
+| `noword` | No-Word Pictures | صور بلا كلمات |
+
+## Media included
+
+- **Media Lab:** 50 SVG picture prompts, 50 playable WAV audio prompts, and 50 playable MP4 animated challenges per language.
+- **Sound & Melody:** 150 original synthesized melody clips used for different listening questions in each language.
+- **Cartoon Challenge / No-Word Pictures:** 150 original illustrated SVG pictogram cards in each category.
+- Existing project media files are retained in the `assets/` folder.
+
+**Media limitation:** the newly created picture cards are stylized emoji-based SVG pictograms, not photorealistic photographs or hand-drawn cartoon scenes. The MP4s are original simple shape-animation challenges, not live-action footage. The WAVs are synthesized note patterns, not licensed commercial songs or real-world recordings. Replace or supplement them with your own licensed photographs, cartoon footage, songs or recordings when authentic media is required.
 
 ## Run locally
 
-Because browsers restrict loading JSON with `file://`, start a small local web server.
+Browsers restrict loading JSON files through `file://`, so use a small local web server.
 
 ### Windows
-Double-click `scripts/start-windows.bat`, or run:
 
-```text
+Double-click `scripts/start-windows.bat`, or run in this folder:
+
+```bash
 python -m http.server 8000
 ```
 
 Then open `http://localhost:8000`.
 
 ### macOS / Linux
-Run:
 
 ```bash
 chmod +x scripts/start.sh
@@ -41,12 +62,16 @@ chmod +x scripts/start.sh
 
 Then open `http://localhost:8000`.
 
-## GitHub database setup
+## Database files
 
-You can keep `db/en.json` and `db/ar.json` in a GitHub repository and have the game fetch them directly.
+- `db/en.json`
+- `db/ar.json`
 
-1. Upload the `db` folder to your GitHub repository.
-2. In `js/config.js`, set:
+Both have the same category IDs and 150 questions per category. Each question includes an ID, type, question, answer, points and timer. Media questions also include a local asset path. Crossword questions include the grid coordinates and clue data.
+
+## GitHub hosting
+
+The game can load JSON from GitHub Raw URLs and fall back to the local database. Edit `js/config.js`:
 
 ```js
 window.QUIZ_CONFIG = {
@@ -62,59 +87,10 @@ window.QUIZ_CONFIG = {
 };
 ```
 
-The app will try the GitHub URL first and fall back to the local JSON files if the GitHub URL is unavailable.
+For static media hosting, upload the `assets/` folder as well as the HTML, CSS, JS and database files. For large media libraries, a CDN or dedicated static-asset host is preferable.
 
-## Question schema
+## Editing questions
 
-Each question looks like:
+Edit the relevant JSON category's `questions` array. Supported question `type` values are `text`, `image`, `audio` and `video`. `media` points to the question asset; `answerMedia` optionally adds media to the answer screen.
 
-```json
-{
-  "id": "en-example-1",
-  "type": "text",
-  "question": "What is 2 + 2?",
-  "answer": "4",
-  "points": 100,
-  "timer": 30
-}
-```
-
-For media questions, use a media URL or local asset path:
-
-```json
-{
-  "id": "en-photo-1",
-  "type": "image",
-  "question": "Identify this landmark.",
-  "media": "assets/example.jpg",
-  "answer": "Example landmark",
-  "answerMedia": "assets/answer.jpg",
-  "points": 200,
-  "timer": 40
-}
-```
-
-Supported `type` values: `text`, `image`, `audio`, `video`.
-
-For media answers, use `answerMedia`. For a text answer plus media, keep `answer` and add `answerMedia`.
-
-## Notes about media on GitHub
-
-For large audio/video files, it is better to use a CDN or another static asset host. GitHub is fine for smaller quiz assets, but Git LFS or a dedicated media host may be preferable for a large question library.
-
-## Changing questions
-
-Edit the appropriate JSON file, commit/push the change, and refresh the game. The game does not require a database server.
-
-## Fun & fairness update
-
-- **Shuffled, non-repeating questions**: each category is a shuffled deck; a question is never asked twice until the whole category is used, then it is reshuffled (never starting with the last question). Used questions are remembered across page refreshes; **Same teams, start from zero** and **Back to start (new teams)** both clear them.
-- **Team turns**: the category picker rotates between teams; the active team glows in the scoreboard.
-- **Fun**: sound effects (mute button 🔊 in the header), confetti, animated timer ring with a shake in the last 5 seconds, flip-in answer reveal, score count-up, and a rising podium. Motion is disabled automatically for users who prefer reduced motion.
-- **Media Lab**: includes image, audio and video examples in `assets/`.
-
-## Flow update
-
-- **Language** is chosen on the landing page.
-- **Category selection page** (after team setup): tick the categories to play; only those appear on the category screen (use *Change categories* to edit later).
-- **Ties**: teams with equal scores stand together on the same podium stand.
+There is no hard-coded team limit. With 150 questions per category and four questions per selected category per team, 37 teams can receive four unique questions from each category before that category deck must reshuffle; larger matches can still play, but questions may repeat after the 150-question deck is exhausted.
